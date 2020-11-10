@@ -1,0 +1,19 @@
+{
+  "name": "contratospublicos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "index": "./src/index.js index-data",
+    "search": "./src/index.js search",
+    "delete": "./src/index.js delete"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.9.1",
+    "sequelize": "^6.3.5",
+    "xml2js": "^0.4.23"
+  },
+  "type": "module"
+}
