@@ -26,6 +26,11 @@ function searchCommand() {
     search = JSON.parse(process.argv[3])
   }
   client.search(search)
+    .then(result => {
+      console.log(result)
+      console.log(result.body.hits.hits)
+      console.log(result.body.hits.total)
+    })
 }
 
 function deleteIndexCommand() {

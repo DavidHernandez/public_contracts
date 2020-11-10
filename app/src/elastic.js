@@ -1,6 +1,7 @@
 import { Client } from '@elastic/elasticsearch'
 
 const INDEX_NAME = 'contracts'
+const ITEMS_PER_PAGE = 50
 
 export default class Elastic {
   constructor() {
@@ -14,15 +15,12 @@ export default class Elastic {
     })
   }
 
-  search(query) {
-    this.client.search({
+  search(query, page = 0) {
+    return this.client.search({
       index: INDEX_NAME,
+      size: ITEMS_PER_PAGE,
+      from: ITEMS_PER_PAGE * page,
       body: query
-    })
-    .then(result => {
-      console.log(result)
-      //console.log(result.body.hits.hits)
-      console.log(result.body.hits.total)
     })
   }
 

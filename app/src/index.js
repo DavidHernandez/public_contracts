@@ -1,6 +1,19 @@
-#!/usr/bin/env node
+import express from 'express'
+import Elastic from './elastic.js'
 
-import execute from './commands.js'
+const app = express()
+const port = 3000
 
-const command = process.argv[2]
-execute(command)
+const client = new Elastic()
+
+app.get('/search', (req, res) => {
+  const page = req.query.page ? req.query.page : 0
+  client.search({}, page)
+    .then(results => {
+      res.send(results.body.hits)
+    })
+})
+
+app.listen(port, () => {
+  console.log(`Listening at http://localhost:${port}`)
+})

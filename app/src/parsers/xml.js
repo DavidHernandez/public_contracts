@@ -51,7 +51,7 @@ function saveEntry(entry) {
   )
 
   indexItem(contract.toJson())
-  console.log(contract.toJson())
+  //console.log(contract.toJson())
   //console.log(folderData)
   //console.log(searchDocument)
 }
