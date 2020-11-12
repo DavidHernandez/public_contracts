@@ -1,6 +1,6 @@
 const ContractsFormTemplate = document.createElement('template')
 ContractsFormTemplate.innerHTML = `
-  <h1>Hola</h1>
+  <h1>Buscador contratos públicos</h1>
   <div>
     <label for="title">Titulo</label>
     <input id="title" type="text"></input>
