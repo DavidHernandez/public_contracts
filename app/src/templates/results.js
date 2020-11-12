@@ -10,6 +10,7 @@ ResultsTemplate.innerHTML = `
     <h2>Total: <span id="total"></span></h2>
     <div id="results"></div>
   </div>
+  <div id="pager"></div>
 `
 
 export default ResultsTemplate

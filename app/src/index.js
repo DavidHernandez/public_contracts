@@ -5,6 +5,7 @@ import Api from './services/api'
 
 Bus.subscribe('search', query => {
   Api.search(query).then(results => {
+    results['query'] = query
     Bus.publish('searchResponse', results)
   })
 })
