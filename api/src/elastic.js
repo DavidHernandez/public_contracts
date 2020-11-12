@@ -16,12 +16,14 @@ export default class Elastic {
   }
 
   search(query, page = 0) {
-    return this.client.search({
+    const parameters = {
       index: INDEX_NAME,
       size: ITEMS_PER_PAGE,
       from: ITEMS_PER_PAGE * page,
       body: query
-    })
+    }
+
+    return this.client.search(parameters)
   }
 
   clean() {

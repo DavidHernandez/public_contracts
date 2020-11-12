@@ -1,0 +1,25 @@
+{
+  "name": "contratospublicos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js localhost 3000",
+    "index": "./src/cli.js index-data",
+    "search": "./src/cli.js search",
+    "delete": "./src/cli.js delete"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.9.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "sequelize": "^6.3.5",
+    "xml2js": "^0.4.23"
+  },
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}

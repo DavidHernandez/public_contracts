@@ -22,10 +22,18 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: contracts
 
-  app:
-    build: app/.
+  api:
+    build: api/.
     ports:
       - 3000:3000
     volumes:
+      - "./api:/api"
+      - "./data:/api/data"
+
+  app:
+    build: app/.
+    ports:
+      - 8080:8080
+      - 8082:8082
+    volumes:
       - "./app:/app"
-      - "./data:/app/data"
