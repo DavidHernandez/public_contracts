@@ -1,0 +1,39 @@
+version: "3.5"
+
+services:
+  elastic:
+    image: elasticsearch:7.9.3
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+    volumes:
+      - "./elasticdata:/usr/share/elasticsearch/data"
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: contracts
+
+  api:
+    build: api/.
+    ports:
+      - 3000:3000
+    volumes:
+      - "./api:/api"
+      - "./data:/api/data"
+
+  app:
+    build: app/.
+    ports:
+      - 8090:8090
+    volumes:
+      - "./app:/app"
+    command: ['npm', 'run', 'pro-serve']

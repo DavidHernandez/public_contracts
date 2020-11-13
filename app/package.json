@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "parcel index.html -p 8080 --hmr-port 8082"
+    "serve": "parcel index.html -p 8080 --hmr-port 8082",
+    "pro-serve": "parcel build index.html; http-server -p 8090 ./dist"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +13,7 @@
     "parcel": "^1.12.4"
   },
   "dependencies": {
+    "http-server": "^0.12.3",
     "postal": "^2.0.5"
   }
 }
