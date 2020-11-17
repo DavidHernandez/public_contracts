@@ -1,6 +1,6 @@
 export default {
   search(query) {
-    let url = 'http://localhost:3000/search?'
+    let url = 'http://api.ftm.coleseguro.es:3000/search?'
 
     for (const parameter in query) {
       const value = query[parameter]
