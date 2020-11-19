@@ -10,14 +10,24 @@ export default class ContractsForm extends HTMLElement {
     this.titleInput = this.shadowDOM.getElementById('title')
     this.entityInput = this.shadowDOM.getElementById('entity')
     this.processingInput = this.shadowDOM.getElementById("processing")
+    this.titleComparerInput = this.shadowDOM.getElementById('title-comparer')
+    this.entityComparerInput = this.shadowDOM.getElementById('entity-comparer')
+    this.processingComparerInput = this.shadowDOM.getElementById("processing-comparer")
     this.submitButton = this.shadowDOM.getElementById("submit")
 
     this.title = ''
     this.entity = ''
     this.processing = ''
+
+    this.titleComparer = 'term'
+    this.entityComparer = 'term'
+    this.processingComparer = 'term'
   }
 
   connectedCallback() {
+    this.titleComparerInput.addEventListener('change', this.updateTitleComparer.bind(this))
+    this.entityComparerInput.addEventListener('change', this.updateEntityComparer.bind(this))
+    this.processingComparerInput.addEventListener('change', this.updateProcessingComparer.bind(this))
     this.titleInput.addEventListener('change', this.updateTitle.bind(this))
     this.entityInput.addEventListener('change', this.updateEntity.bind(this))
     this.processingInput.addEventListener('change', this.updateProcessing.bind(this))
@@ -36,9 +46,21 @@ export default class ContractsForm extends HTMLElement {
     this.processing = event.target.value
   }
 
+  updateTitleComparer(event) {
+    this.titleComparer = event.target.value
+  }
+
+  updateEntityComparer(event) {
+    this.entityComparer = event.target.value
+  }
+
+  updateProcessingComparer(event) {
+    this.processingComparer = event.target.value
+  }
+
   submitForm() {
-    const { title, entity, processing } = this
-    Bus.publish('search', {title, entity, processing})
+    const { title, entity, processing, titleComparer, entityComparer, processingComparer } = this
+    Bus.publish('search', { title, entity, processing, titleComparer, entityComparer, processingComparer })
   }
 }
 
