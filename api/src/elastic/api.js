@@ -30,7 +30,7 @@ export default class Api {
   searchAll(query) {
     const parameters = {
       index: INDEX_NAME,
-      size: 10000,
+      size: MAX_ITEMS,
       body: query
     }
 

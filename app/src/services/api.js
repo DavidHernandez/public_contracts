@@ -1,4 +1,5 @@
-const baseUrl = 'http://localhost:3000/'
+//const baseUrl = 'http://localhost:3000/'
+const baseUrl = 'https://api.ftm.coleseguro.es/'
 
 export default {
   search(query) {
