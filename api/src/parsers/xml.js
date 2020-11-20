@@ -47,13 +47,9 @@ function saveEntry(entry) {
     getProcessType(folderData),
     getProcessingType(folderData),
     getContractingAuthority(folderData),
-    entry
   )
 
   indexItem(contract.toJson())
-  //console.log(contract.toJson())
-  //console.log(folderData)
-  //console.log(searchDocument)
 }
 
 function getContractingAuthority(folderData) {
