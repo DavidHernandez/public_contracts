@@ -32,6 +32,26 @@ ContractsFormTemplate.innerHTML = `
     </select>
   </div>
   <div>
+    <label for="type">Tipo de contrato</label>
+    <input id="type" type="text"></input>
+    <label for="type-comparer">Comparador</label>
+    <select name="type-comparer" id="type-comparer">
+      <option value="term">Coincidencia exacta</option>
+      <option value="terms">Una o mas palabras coinciden</option>
+      <option value="prefix">La palabra empieza por</option>
+    </select>
+  </div>
+  <div>
+    <label for="subtype">Subtipo de contrato</label>
+    <input id="subtype" type="text"></input>
+    <label for="subtype-comparer">Comparador</label>
+    <select name="subtype-comparer" id="subtype-comparer">
+      <option value="term">Coincidencia exacta</option>
+      <option value="terms">Una o mas palabras coinciden</option>
+      <option value="prefix">La palabra empieza por</option>
+    </select>
+  </div>
+  <div>
     <button id="submit">Buscar</button>
   </div>
 `

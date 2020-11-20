@@ -13,6 +13,8 @@ const ENABLED_FIELDS = {
   title: 'title',
   entity: 'contractingAuthority',
   processing: 'processingType',
+  type: 'contractType',
+  subtype: 'contractSubtype',
 }
 
 export default function formatQuery(query) {
@@ -23,7 +25,7 @@ export default function formatQuery(query) {
 
     if (query[field]) {
       const comparer = query[field + 'Comparer']
-      filter.push(FILTERS[comparer].toJson(elasticField, query[field]))
+      filter.push(FILTERS[comparer].toJson(elasticField, query[field].toLowerCase()))
     }
   }
 
