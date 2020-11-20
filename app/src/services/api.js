@@ -1,6 +1,8 @@
+const baseUrl = 'http://localhost:3000/'
+
 export default {
   search(query) {
-    let url = 'https://api.ftm.coleseguro.es/search?'
+    let url = baseUrl + 'search?'
 
     for (const parameter in query) {
       const value = query[parameter]
@@ -12,5 +14,18 @@ export default {
 
     return fetch(url)
       .then(response => response.json())
+  },
+
+  getDownloadUrl(query) {
+    let url = baseUrl + 'download.csv?'
+
+    for (const parameter in query) {
+      const value = query[parameter]
+
+      if (value != '') {
+        url += parameter + '=' + value + '&'
+      }
+    }
+    return url
   }
 }

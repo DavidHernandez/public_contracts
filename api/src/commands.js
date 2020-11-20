@@ -1,9 +1,9 @@
-import Elastic from './elastic.js'
+import Api from './elastic/api.js'
 import parseFile from './parsers/xml.js'
 import fs from 'fs'
 
 const DATA_FOLDER = './data'
-const client = new Elastic()
+const client = new Api()
 
 function indexCommand() {
   fs.readdir(DATA_FOLDER, (err, files) => {

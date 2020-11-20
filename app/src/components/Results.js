@@ -13,6 +13,7 @@ export default class Results extends HTMLElement {
     this.resultsContainer = this.shadowDOM.getElementById('results')
     this.totalContainer = this.shadowDOM.getElementById('total')
     this.mainContainer = this.shadowDOM.getElementById('wrapper')
+    this.downloadButton = this.shadowDOM.getElementById('download')
     this.pagerContainer = this.shadowDOM.getElementById('pager')
 
     this.results
@@ -23,6 +24,13 @@ export default class Results extends HTMLElement {
       this.results = results
       this.showResults()
     })
+
+    this.downloadButton.addEventListener('click', this.downloadResults.bind(this))
+  }
+
+  downloadResults() {
+    const { title, entity, processing, titleComparer, entityComparer, processingComparer } = this.results.query
+    Bus.publish('downloadResults', { title, entity, processing, titleComparer, entityComparer, processingComparer })
   }
 
   showResults() {
@@ -82,11 +90,11 @@ export default class Results extends HTMLElement {
   }
 
   addButton(text, page) {
-    const { title, entity, processing } = this.results.query
+    const { title, entity, processing, titleComparer, entityComparer, processingComparer } = this.results.query
     const button = document.createElement('button')
     button.innerHTML = text
     button.addEventListener('click', () => {
-      Bus.publish('search', {title, entity, processing, page})
+      Bus.publish('search', { title, entity, processing, titleComparer, entityComparer, processingComparer, page })
       window.scrollTo(0, 0);
     })
     this.pagerContainer.appendChild(button)

@@ -9,8 +9,9 @@ ResultsTemplate.innerHTML = `
     <h1>Results</h1>
     <h2>Total: <span id="total"></span></h2>
     <div id="results"></div>
+    <button id="download">Download</button>
+    <div id="pager"></div>
   </div>
-  <div id="pager"></div>
 `
 
 export default ResultsTemplate

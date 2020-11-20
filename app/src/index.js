@@ -9,3 +9,8 @@ Bus.subscribe('search', query => {
     Bus.publish('searchResponse', results)
   })
 })
+
+Bus.subscribe('downloadResults', query => {
+  const url = Api.getDownloadUrl(query)
+  window.open(url)
+})
