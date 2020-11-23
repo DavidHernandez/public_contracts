@@ -91,7 +91,7 @@ function downloadFile(zipPath, url, callback) {
     file.on('finish', callback)
   })
   .on('error', (e) => {
-    console.error(e)
+    console.error('ERROR ON', zipPath)
   })
 }
 

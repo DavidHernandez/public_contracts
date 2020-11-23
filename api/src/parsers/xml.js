@@ -77,6 +77,7 @@ function getRegion(procurementProject) {
   const region = NUTS_CODES[code]
   if (region === undefined) {
     console.log('ERROR EXTRACTING REGION', code)
+    return code ? code : ''
   }
   return region
 }

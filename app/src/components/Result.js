@@ -13,12 +13,13 @@ export default class Result extends HTMLElement {
     this.processing = this.shadowDOM.getElementById('processing')
     this.contracting = this.shadowDOM.getElementById('contracting')
     this.status = this.shadowDOM.getElementById('status')
+    this.region = this.shadowDOM.getElementById('region')
     this.budget = this.shadowDOM.getElementById('budget')
   }
 
   addData(data) {
     const result = data._source
-    const { link, title, contractType, contractSubtype, status, budget, processingType, contractingAuthority } = result
+    const { link, title, contractType, contractSubtype, status, budget, processingType, contractingAuthority, region } = result
 
     this.link.href = link
     this.link.innerHTML = title
@@ -28,6 +29,7 @@ export default class Result extends HTMLElement {
     this.processing.innerHTML = processingType
     this.contracting.innerHTML = contractingAuthority
     this.status.innerHTML = status
+    this.region.innerHTML = region
   }
 }
 
