@@ -12,11 +12,17 @@ export default class ContractsForm extends HTMLElement {
     this.processingInput = this.shadowDOM.getElementById("processing")
     this.typeInput = this.shadowDOM.getElementById("type")
     this.subtypeInput = this.shadowDOM.getElementById("subtype")
+    this.regionInput = this.shadowDOM.getElementById("region")
+    this.statusInput = this.shadowDOM.getElementById("status")
+
     this.titleComparerInput = this.shadowDOM.getElementById('title-comparer')
     this.entityComparerInput = this.shadowDOM.getElementById('entity-comparer')
     this.processingComparerInput = this.shadowDOM.getElementById("processing-comparer")
     this.typeComparerInput = this.shadowDOM.getElementById("type-comparer")
     this.subtypeComparerInput = this.shadowDOM.getElementById("subtype-comparer")
+    this.regionComparerInput = this.shadowDOM.getElementById("region-comparer")
+    this.statusComparerInput = this.shadowDOM.getElementById("status-comparer")
+
     this.submitButton = this.shadowDOM.getElementById("submit")
 
     this.title = ''
@@ -24,25 +30,35 @@ export default class ContractsForm extends HTMLElement {
     this.processing = ''
     this.type = ''
     this.subtype = ''
+    this.region = ''
+    this.status = ''
 
     this.titleComparer = 'term'
     this.entityComparer = 'term'
     this.processingComparer = 'term'
     this.typeComparer = 'term'
     this.subtypeComparer = 'term'
+    this.regionComparer = 'term'
+    this.statusComparer = 'term'
   }
 
   connectedCallback() {
-    this.titleComparerInput.addEventListener('change', this.updateTitleComparer.bind(this))
-    this.entityComparerInput.addEventListener('change', this.updateEntityComparer.bind(this))
-    this.processingComparerInput.addEventListener('change', this.updateProcessingComparer.bind(this))
-    this.typeComparerInput.addEventListener('change', this.updateTypeComparer.bind(this))
-    this.subtypeComparerInput.addEventListener('change', this.updateSubtypeComparer.bind(this))
     this.titleInput.addEventListener('change', this.updateTitle.bind(this))
     this.entityInput.addEventListener('change', this.updateEntity.bind(this))
     this.processingInput.addEventListener('change', this.updateProcessing.bind(this))
     this.typeInput.addEventListener('change', this.updateType.bind(this))
     this.subtypeInput.addEventListener('change', this.updateSubtype.bind(this))
+    this.regionInput.addEventListener('change', this.updateRegion.bind(this))
+    this.statusInput.addEventListener('change', this.updateStatus.bind(this))
+
+    this.titleComparerInput.addEventListener('change', this.updateTitleComparer.bind(this))
+    this.entityComparerInput.addEventListener('change', this.updateEntityComparer.bind(this))
+    this.processingComparerInput.addEventListener('change', this.updateProcessingComparer.bind(this))
+    this.typeComparerInput.addEventListener('change', this.updateTypeComparer.bind(this))
+    this.subtypeComparerInput.addEventListener('change', this.updateSubtypeComparer.bind(this))
+    this.regionComparerInput.addEventListener('change', this.updateRegionComparer.bind(this))
+    this.statusComparerInput.addEventListener('change', this.updateStatusComparer.bind(this))
+
     this.submitButton.addEventListener('click', this.submitForm.bind(this))
   }
 
@@ -66,6 +82,14 @@ export default class ContractsForm extends HTMLElement {
     this.subtype = event.target.value
   }
 
+  updateRegion(event) {
+    this.region = event.target.value
+  }
+
+  updateStatus(event) {
+    this.status = event.target.value
+  }
+
   updateTitleComparer(event) {
     this.titleComparer = event.target.value
   }
@@ -86,9 +110,17 @@ export default class ContractsForm extends HTMLElement {
     this.subtypeComparer = event.target.value
   }
 
+  updateRegionComparer(event) {
+    this.regionComparer = event.target.value
+  }
+
+  updateStatusComparer(event) {
+    this.statusComparer = event.target.value
+  }
+
   submitForm() {
-    const { title, entity, processing, type, subtype, titleComparer, entityComparer, processingComparer, typeComparer, subtypeComparer } = this
-    Bus.publish('search', { title, entity, processing, type, subtype, titleComparer, entityComparer, processingComparer, typeComparer, subtypeComparer })
+    const { title, entity, processing, type, subtype, region, status, titleComparer, entityComparer, processingComparer, typeComparer, subtypeComparer, regionComparer, statusComparer } = this
+    Bus.publish('search', { title, entity, processing, type, subtype, region, status, titleComparer, entityComparer, processingComparer, typeComparer, subtypeComparer, regionComparer, statusComparer })
   }
 }
 

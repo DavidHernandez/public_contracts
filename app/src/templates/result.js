@@ -7,6 +7,7 @@ ResultTemplate.innerHTML = `
     <p>Subtipo de contrato: <span id="subtype"></span></p>
     <p>Tipo de tramitación: <span id="processing"></span></p>
     <p>Organismo contratante: <span id="contracting"></span></p>
+    <p>Provincia: <span id="province"></span></p>
     <p>Estado: <span id="status"></span></p>
   </div>
 `

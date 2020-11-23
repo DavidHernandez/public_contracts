@@ -11,10 +11,12 @@ Run the project with: `docker-compose up`
 
 Drop the files into the `data` folder.
 
-Index the files with `docker-compose exec app npm run index-data`
+Index the files with `docker-compose exec api npm run index`
 
-Delete the index with `docker-compose exec app npm run delete`
+Download all the zips and index them with `docker-compose exec api npm run index-all`
 
-Search with `docker-compose exec app npm run search {query}`
+Delete the index with `docker-compose exec api npm run delete`
 
-Sample search: `docker-compose exec app npm run search '{ "query": { "match": { "summary": "covid" } } }'`
+Search with `docker-compose exec api npm run search {query}`
+
+Sample search: `docker-compose exec api npm run search '{ "query": { "match": { "summary": "covid" } } }'`

@@ -25,12 +25,18 @@ export default function download(req, res) {
     })
 }
 
-function cleanup(string) {
-  string = string.split("\r").join('')
-  string = string.split("\n").join('')
-  string = string.split("\t").join('')
-  string = string.split(`"`).join('\'')
-  string = string.split(`“`).join('\'')
-  string = string.split(`”`).join('\'')
-  return string
+function cleanup(string = '') {
+  let newString = ''
+  try {
+    newString = string.split("\r").join('')
+    newString = newString.split("\n").join('')
+    newString = newString.split("\t").join('')
+    newString = newString.split(`"`).join('\'')
+    newString = newString.split(`“`).join('\'')
+    newString = newString.split(`”`).join('\'')
+  }
+  catch (e) {
+    return string
+  }
+  return newString
 }

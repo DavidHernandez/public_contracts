@@ -1,17 +1,5 @@
-//import Sequelize from 'sequelize'
-
 export default class Contract {
-  constructor(summary, id, link, title, updated, contractType, contractSubtype, status, budget, processType, processingType, contractingAuthority, rawData) {
-    //this.client = new Sequelize(
-      //'contracts',
-      //'root',
-      //'root',
-      //{
-        //dialect: 'mysql',
-        //host: 'db'
-      //}
-    //)
-
+  constructor(summary, id, link, title, updated, contractType, contractSubtype, status, budget, processType, processingType, contractingAuthority, region) {
     this.summary = summary
     this.id = id
     this.link = link
@@ -24,28 +12,8 @@ export default class Contract {
     this.processType = processType
     this.processingType = processingType
     this.contractingAuthority = contractingAuthority
-    this.rawData = rawData
+    this.region = region
   }
-
-  //get model() {
-    //return client.sequelize('contracts', {
-      //id: {
-        //type: Sequelize.STRING,
-        //allowNull:false,
-        //primaryKey:true
-      //},
-      //summary: { type: Sequelize.STRING },
-      //link: { type: Sequelize.STRING },
-      //title: { type: Sequelize.STRING },
-      //updated: { type: Sequelize.DATE },
-      //contractType: { type: Sequelize.STRING },
-      //contractSubtype: { type: Sequelize.STRING },
-      //status: { type: Sequelize.STRING },
-      //processType: { type: Sequelize.STRING },
-      //processingType: { type: Sequelize.STRING },
-      //contractingAuthority: { type: Sequelize.STRING },
-    //})
-  //}
 
   toJson() {
     return {
@@ -61,7 +29,7 @@ export default class Contract {
       processType: this.processtype,
       processingType: this.processingType,
       contractingAuthority: this.contractingAuthority,
-      rawData: this.rawData
+      region: this.region
     }
   }
 }

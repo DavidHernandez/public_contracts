@@ -1,29 +1,33 @@
-import { FOLDER_STATES, CONTRACT_TYPES, CONTRACT_SUBTYPES, PROCESS_CODES, URGENCY_CODES } from '../maps.js'
-import Elastic from '../elastic.js'
+import { FOLDER_STATES, CONTRACT_TYPES, CONTRACT_SUBTYPES, PROCESS_CODES, URGENCY_CODES, NUTS_CODES } from '../maps.js'
+import Api from '../elastic/api.js'
 import fs from 'fs'
 import xml2js from 'xml2js'
 import Contract from '../models/Contract.js'
 
-const parseString = xml2js.parseString
-const client = new Elastic()
+const parseXmlString = xml2js.parseString
+const client = new Api()
 
-export default function parseFile(file) {
+function parseFile(file) {
   fs.readFile(file, 'utf-8', (err, xmlString) => {
     if (err) {
       console.log(err)
       return
     }
 
-    parseString(xmlString, function (err, result) {
-      if (err) {
-        console.log(err)
-        return
-      }
+    parseString(xmlString)
+  })
+}
 
-      const entries = result.feed.entry
-      entries.forEach(entry => {
-        saveEntry(entry)
-      })
+function parseString(xmlString) {
+  parseXmlString(xmlString, function (err, result) {
+    if (err) {
+      console.log(err)
+      return
+    }
+
+    const entries = result.feed.entry
+    entries.forEach(entry => {
+      saveEntry(entry)
     })
   })
 }
@@ -47,6 +51,7 @@ function saveEntry(entry) {
     getProcessType(folderData),
     getProcessingType(folderData),
     getContractingAuthority(folderData),
+    getRegion(procurementProject)
   )
 
   indexItem(contract.toJson())
@@ -59,6 +64,17 @@ function getContractingAuthority(folderData) {
   const name = getItem(partyName['cbc:Name'])
 
   return name
+}
+
+function getRegion(procurementProject) {
+  const realizedLocation = getItem(procurementProject['cac:RealizedLocation'])
+  const code = getItem(realizedLocation['cbc:CountrySubentityCode'])
+
+  const region = NUTS_CODES[code]
+  if (region === undefined) {
+    console.log('ERROR EXTRACTING REGION', code)
+  }
+  return region
 }
 
 function getTenderingProcess(folderData) {
@@ -90,7 +106,11 @@ function getContractSubtype(procurementProject) {
 
   const type = getContractType(procurementProject)
 
-  return CONTRACT_SUBTYPES[type][contractSubtype]
+  if (type in CONTRACT_SUBTYPES) {
+    return CONTRACT_SUBTYPES[type][contractSubtype]
+  }
+  console.log('NOT FOUND: ', type)
+  return ''
 }
 
 function getContractType(procurementProject) {
@@ -123,4 +143,9 @@ function getItem(item, component = '_') {
 
 function indexItem(entry) {
   client.index(entry)
+}
+
+export {
+  parseFile,
+  parseString
 }

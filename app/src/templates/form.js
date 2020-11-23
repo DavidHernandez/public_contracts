@@ -52,6 +52,26 @@ ContractsFormTemplate.innerHTML = `
     </select>
   </div>
   <div>
+    <label for="region">Región donde aplica el contrato</label>
+    <input id="region" type="text"></input>
+    <label for="region-comparer">Comparador</label>
+    <select name="region-comparer" id="region-comparer">
+      <option value="term">Coincidencia exacta</option>
+      <option value="terms">Una o mas palabras coinciden</option>
+      <option value="prefix">La palabra empieza por</option>
+    </select>
+  </div>
+  <div>
+    <label for="status">Estado</label>
+    <input id="status" type="text"></input>
+    <label for="status-comparer">Comparador</label>
+    <select name="status-comparer" id="status-comparer">
+      <option value="term">Coincidencia exacta</option>
+      <option value="terms">Una o mas palabras coinciden</option>
+      <option value="prefix">La palabra empieza por</option>
+    </select>
+  </div>
+  <div>
     <button id="submit">Buscar</button>
   </div>
 `

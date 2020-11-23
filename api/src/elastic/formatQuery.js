@@ -15,6 +15,8 @@ const ENABLED_FIELDS = {
   processing: 'processingType',
   type: 'contractType',
   subtype: 'contractSubtype',
+  region: 'region',
+  status: 'status',
 }
 
 export default function formatQuery(query) {
