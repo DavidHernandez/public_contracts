@@ -68,6 +68,10 @@ function getContractingAuthority(folderData) {
 
 function getRegion(procurementProject) {
   const realizedLocation = getItem(procurementProject['cac:RealizedLocation'])
+  if (!('cbc:CountrySubentityCode' in realizedLocation)) {
+    console.log('ERROR EXTRACTING REGION', realizedLocation)
+    return ''
+  }
   const code = getItem(realizedLocation['cbc:CountrySubentityCode'])
 
   const region = NUTS_CODES[code]
