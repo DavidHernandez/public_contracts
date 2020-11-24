@@ -35,6 +35,7 @@ function parseString(xmlString) {
 function saveEntry(entry) {
   const folderData = getItem(entry['cac-place-ext:ContractFolderStatus'])
   const procurementProject = getItem(folderData['cac:ProcurementProject'])
+  const tenderResult = getItem(folderData['cac:TenderResult'])
 
   const statusCode = getItem(folderData['cbc-place-ext:ContractFolderStatusCode'])
 
@@ -47,7 +48,7 @@ function saveEntry(entry) {
     getContractType(procurementProject),
     getContractSubtype(procurementProject),
     FOLDER_STATES[statusCode],
-    getBudget(procurementProject),
+    getBudget(procurementProject, tenderResult),
     getProcessType(folderData),
     getProcessingType(folderData),
     getContractingAuthority(folderData),
@@ -124,10 +125,33 @@ function getContractType(procurementProject) {
   return CONTRACT_TYPES[contractType]
 }
 
-function getBudget(procurementProject) {
+function getBudget(procurementProject, tenderResult) {
   const budget = getItem(procurementProject['cac:BudgetAmount'])
 
-  return getItem(budget['cbc:TotalAmount'])
+  let amount = 0
+  if ('cbc:TaxExclusiveAmount' in budget) {
+    amount = getItem(budget['cbc:TaxExclusiveAmount'])
+  }
+  if (amount === 0 && 'cbc:EstimatedOverallContractAmount') {
+    amount = getItem(budget['cbc:EstimatedOverallContractAmount'])
+  }
+
+  if (amount) {
+    return amount
+  }
+
+  if (!('cac:AwardedTenderedProject' in tenderResult)) {
+    return ''
+  }
+
+  const project = getItem(tenderResult['cac:AwardedTenderedProject'])
+  if ('cbc:TaxExclusiveAmount' in project) {
+    return getItem(project['cbc:TaxExclusiveAmount'])
+  }
+
+  const moneyTotal = getItem(project['LegalMonetaryTotal'])
+
+  return getItem(moneyTotal['cbc:TaxExclusiveAmount'])
 }
 
 function getItem(item, component = '_') {
