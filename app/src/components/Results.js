@@ -10,6 +10,10 @@ export default class Results extends HTMLElement {
     this.shadowDOM = this.attachShadow({ mode: 'closed' })
     this.shadowDOM.appendChild(ResultsTemplate.content.cloneNode(true))
 
+    this.fields = [
+      'title', 'entity', 'processing', 'type', 'subtype', 'region', 'status'
+    ]
+
     this.resultsContainer = this.shadowDOM.getElementById('results')
     this.totalContainer = this.shadowDOM.getElementById('total')
     this.mainContainer = this.shadowDOM.getElementById('wrapper')
@@ -29,8 +33,18 @@ export default class Results extends HTMLElement {
   }
 
   downloadResults() {
-    const { title, entity, processing, titleComparer, entityComparer, processingComparer } = this.results.query
-    Bus.publish('downloadResults', { title, entity, processing, titleComparer, entityComparer, processingComparer })
+    const query = this.getQuery()
+    Bus.publish('downloadResults', query)
+  }
+
+  getQuery() {
+    const query = {}
+    this.actOnFields((field, comparer) => {
+      query[field] = this.results.query[field]
+      query[comparer] = this.results.query[comparer]
+    })
+
+    return query
   }
 
   showResults() {
@@ -90,13 +104,16 @@ export default class Results extends HTMLElement {
   }
 
   addButton(text, page) {
-    const { title, entity, processing, titleComparer, entityComparer, processingComparer } = this.results.query
+    const query = this.getQuery()
+    query[page] = page
+
     const button = document.createElement('button')
     button.innerHTML = text
     button.addEventListener('click', () => {
-      Bus.publish('search', { title, entity, processing, titleComparer, entityComparer, processingComparer, page })
+      Bus.publish('search', query)
       window.scrollTo(0, 0);
     })
+
     this.pagerContainer.appendChild(button)
   }
 
@@ -129,6 +146,13 @@ export default class Results extends HTMLElement {
     }
 
     return page
+  }
+
+  actOnFields(callback) {
+    this.fields.forEach(field => {
+      const comparer = field + 'Comparer'
+      callback(field, comparer)
+    })
   }
 }
 

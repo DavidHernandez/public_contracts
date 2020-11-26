@@ -16,11 +16,11 @@ services:
     volumes:
       - "./elasticdata:/usr/share/elasticsearch/data"
 
-  db:
-    image: mariadb:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: contracts
+  #db:
+    #image: mariadb:latest
+    #environment:
+      #MYSQL_ROOT_PASSWORD: root
+      #MYSQL_DATABASE: contracts
 
   api:
     build: api/.

@@ -12,5 +12,6 @@ Bus.subscribe('search', query => {
 
 Bus.subscribe('downloadResults', query => {
   const url = Api.getDownloadUrl(query)
+  console.log(url)
   window.open(url)
 })
